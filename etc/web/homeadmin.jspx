@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="/templates/main-admin-template.jspx"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<ui:define name="content">
+		<div class="content" id="page-1">
+		<h2>Page 1</h2>
+		<p>Text...</p>
+		</div>
+		<div class="content" id="page-2">
+		<ol id="toc">
+			<li><a href="#page-Platform"><span>Platforme</span></a></li>
+			<li><a href="#page-Type"><span>Type</span></a></li>
+			<li><a href="#page-Game"><span>Game</span></a></li>
+			<li><a href="#page-Console"><span>Console</span></a></li>
+		</ol>
+		<div class="content" id="page-Platform"><f:subview
+			id="subPlatform">
+			<ui:include src="adminPlatform.jspx" />
+		</f:subview></div>
+		<div class="content" id="page-Type"><f:subview id="subPlatform">
+			<ui:include src="adminType.jspx" />
+		</f:subview></div>
+		<div class="content" id="page-Game"><f:subview id="subPlatform">
+			<ui:include src="adminGame.jspx" />
+		</f:subview></div>
+		<div class="content" id="page-Console">
+		<h2>Page Console</h2>
+		<p>Text...</p>
+		</div>
+		</div>
+		<div class="content" id="page-3">
+		<h2>Page 3</h2>
+		<p>Text...</p>
+		</div>
+		<div class="content" id="page-4">
+		<h2>Page 4</h2>
+		<p>Text...</p>
+		</div>
+		<script src="./js/activatables.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			activatables('page', [ 'page-1', 'page-2', 'page-3', 'page-4' ]);
+			activatables('page', [ 'page-Platform', 'page-Type', 'page-Game','page-Console' ]);	           			
+		</script>
+	</ui:define>
+</ui:composition>

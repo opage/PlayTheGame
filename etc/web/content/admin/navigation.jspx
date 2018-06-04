@@ -1,0 +1,8 @@
+<div id="left" xmlns:ice="http://www.icesoft.com/icefaces/component">
+<div class="lt_navigation">
+<div class="nav_header">Courses and Services</div>
+<ul>
+	<li><a href="http://www.arc-mind.com/courses/schedule.html">A completer</a></li>
+</ul>
+</div>
+</div>

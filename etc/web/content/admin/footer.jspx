@@ -1,0 +1,10 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<div class="padded_container">
+<ul>
+	<li><a href="contact.jsf">Contacter nous</a></li>	
+</ul>
+</div>
+<div class="padded_container">Copyright 2009 PlayTheGame,Inc.</div>
+</div>

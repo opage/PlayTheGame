@@ -1,0 +1,15 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	
+<ol id="toc">
+			<li><a href="adminPlatform.iface" id="page-Platform"><span>Platforme</span></a></li>
+			<li><a href="adminType.iface"><span>Type</span></a></li>
+			<li><a href="adminGame.iface"><span>Game</span></a></li>
+			<li><a href="adminConsole.iface"><span>Console</span></a></li>
+			<li><a href="adminAccessory.iface"><span>Accessory</span></a></li>
+		</ol>
+	
+</div>

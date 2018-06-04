@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="/adminArticles.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<ui:define name="contentArticls">
+		<ice:form>
+			<div class="content" id="page-Game"><ice:outputText
+				value="Recherche: Par Nom:"></ice:outputText> <ice:inputText
+				value="#{accessoryMB.nameGame}">
+
+			</ice:inputText> <ice:outputText value="Par Platforme:">
+			</ice:outputText> <ice:selectOneMenu partialSubmit="true"
+				valueChangeListener="#{accessoryMB.platformChanged}">
+				<f:selectItems value="#{accessoryMB.platformItem}" />
+			</ice:selectOneMenu> 
+			 <ice:commandButton value="Ajouter" action="addAccessory"></ice:commandButton>
+
+
+
+			<ice:panelGrid columns="1">
+				<ice:dataTable binding="#{accessoryMB.dataTable}" value="#{accessoryMB.consoles}"
+					var="accessoryVar" rules="all" border="1">
+					<ice:column id="idProduct">
+						<f:facet name="header">
+							<ice:outputText value="Id"></ice:outputText>
+						</f:facet>
+						<h:outputText value="#{accessoryVar.idProduct}" />
+					</ice:column>
+					<ice:column id="nameProduct">
+						<f:facet name="header">
+							<ice:outputText value="Name"></ice:outputText>
+						</f:facet>
+						<h:outputText value="#{accessoryVar.nameProduct}" />
+					</ice:column>
+					<ice:column id="priceProduct">
+						<f:facet name="header">
+							<ice:outputText value="Price"></ice:outputText>
+						</f:facet>
+						<h:outputText value="#{accessoryVar.priceProduct}" />
+					</ice:column>
+					<ice:column id="qteProduct">
+						<f:facet name="header">
+							<ice:outputText value="Qte"></ice:outputText>
+						</f:facet>
+						<h:outputText value="#{accessoryVar.quantityProduct}" />
+					</ice:column>
+					<ice:column id="discountProduct">
+						<f:facet name="header">
+							<ice:outputText value="Discount"></ice:outputText>
+						</f:facet>
+						<h:outputText value="#{accessoryVar.discountProduct}" />
+					</ice:column>
+					
+					<ice:column id="releaseDateProduct">
+						<f:facet name="header">
+							<ice:outputText value="Date de Sortie"></ice:outputText>
+						</f:facet>
+						<h:outputText value="#{accessoryVar.releaseDateProduct}" />
+					</ice:column>
+					
+					<ice:column id="ImageProduct">
+						<f:facet name="header">
+							<ice:outputText value="Image"></ice:outputText>
+						</f:facet>
+						<h:commandButton image="/images/icons/view.gif"
+							action="#{accessoryMB.openPopupEdit}"></h:commandButton>
+					</ice:column>
+					<ice:column id="EditProduct">
+						<f:facet name="header">
+							<ice:outputText value="Edit"></ice:outputText>
+						</f:facet>              
+						<h:commandLink action="#{accessoryEditMB.DoEdit}">
+							<h:graphicImage value="/images/icons/edit.gif"
+								style="border: 0px;" />
+							<f:param name="idGame" value="#{accessoryVar.idProduct}" />
+						</h:commandLink>
+					</ice:column>
+					<ice:column id="DeleteProduct">
+						<f:facet name="header">
+							<ice:outputText value="Delete"></ice:outputText>
+						</f:facet>
+						<h:commandLink action="#{accessoryMB.openPopupDel}">
+							<h:graphicImage value="/images/icons/delete.gif"
+								style="border: 0px;" />
+								<f:param name="idProduct" value="#{accessoryVar.idProduct}" />
+
+						</h:commandLink>
+					</ice:column>
+				</ice:dataTable>
+			</ice:panelGrid> <!-- 	=========================================
+			"          Popup                         "
+			==========================================
+			 -->
+			<div style="z-index: 10; position: absolute"><ice:panelPopup
+				modal="false" draggable="true" rendered="#{accessoryMB.visibleEdit}"
+				style="z-index: 1000;   position: absolute; ">
+				<f:facet name="header">
+					<ice:panelGrid width="100%" cellpadding="0" cellspacing="0"
+						columns="2">
+						<div align="center"><ice:outputText
+							value="visualisation de l'image" /></div>
+						<div align="right"><ice:commandButton value="X"
+							action="#{accessoryMB.closePopupEdit}" style="font-size: 6pt" /></div>
+					</ice:panelGrid>
+				</f:facet>
+				<f:facet name="body">
+					<ice:panelGrid columns="1">
+						<ice:graphicImage value="#{accessoryMB.selectedImageUrl}"></ice:graphicImage>
+
+
+						<div align="center"><ice:commandButton value="Annuler"
+							action="#{accessoryMB.closePopupEdit}" /></div>
+
+					</ice:panelGrid>
+				</f:facet>
+
+			</ice:panelPopup></div>
+			<div style="z-index: 10; position: absolute"><ice:panelPopup
+				modal="false" draggable="true" rendered="#{accessoryMB.visibleDel}"
+				style="z-index: 1000;   position: absolute; ">
+				<f:facet name="header">
+					<ice:panelGrid width="100%" cellpadding="0" cellspacing="0"
+						columns="2">
+						<div align="center"><ice:outputText value="Attention" /></div>
+						<div align="right"><ice:commandButton value="X"
+							action="#{accessoryMB.closePopupDel}" style="font-size: 6pt" /></div>
+					</ice:panelGrid>
+				</f:facet>
+				<f:facet name="body">
+
+					<ice:panelGrid columns="1">
+						<div align="center" style="height: 50px ;width: 200px;"><ice:outputText
+							value="Voulez vous vraiment supprimer ce produit ?" /></div>
+						<div align="center">
+						<ice:commandLink value="Valider"
+							action="#{accessoryMB.removeProduct}">
+							
+
+						</ice:commandLink> <ice:commandLink value="Annuler" action="#{accessoryMB.closePopupDel}" />
+						</div>
+
+					</ice:panelGrid>
+				</f:facet>
+
+			</ice:panelPopup></div>
+			</div>
+		</ice:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="/adminArticles.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	>
+	<ui:define name="contentArticls">
+	<ice:form>
+	<div class="content">
+	<ice:panelGrid columns="1" style="border-bottom-width: medium; border-bottom-style: solid; border-top-style: solid; border-left-color: #3B6CFF; border-top-color: #3B6CFF; border-left-style: solid; border-right-color: #3B6CFF; border-right-width: medium; border-right-style: solid; border-left-width: medium; border-bottom-color: #3B6CFF; border-top-width: medium">
+		<div align="center"><ice:panelGrid columns="1"
+			style="background-color: #3B6CFF; width: 100%;text-align: center">
+			<ice:outputText value="Nouveau jeu video"
+				style="color: #FFFFFF; font-size: 24px" />
+		</ice:panelGrid></div>
+		<div><ice:panelGrid columns="3" style="border-bottom-width: medium; border-bottom-style: solid; border-top-style: solid; border-left-color: #3B6CFF; border-top-color: #3B6CFF; border-left-style: solid; border-right-color: #3B6CFF; border-right-width: medium; border-right-style: solid; border-left-width: medium; border-bottom-color: #3B6CFF; border-top-width: medium">
+			<ice:panelGrid columns="2">
+				<ice:outputText value="Nom:"></ice:outputText>
+				<ice:inputText value="#{gameAddMB.gameAdd.nameProduct}">
+				</ice:inputText>
+				<ice:outputText value="Prix:"></ice:outputText>
+				<ice:inputText value="#{gameAddMB.gameAdd.priceProduct}">
+				</ice:inputText>
+				<ice:outputText value="Quantité:"></ice:outputText>
+				<ice:inputText value="#{gameAddMB.gameAdd.quantityProduct}">
+				</ice:inputText>
+				<ice:outputText value="Discount:"></ice:outputText>
+				<ice:inputText value="#{gameAddMB.gameAdd.discountProduct}">
+				</ice:inputText>
+				<ice:outputText value="Date de Sortie:"></ice:outputText>
+				<ice:selectInputDate value="#{gameAddMB.realiseDateAdd}"
+					renderAsPopup="true" renderMonthAsDropdown="true"
+					renderYearAsDropdown="true">
+					<f:convertDateTime pattern="MM/dd/yyyy" />
+				</ice:selectInputDate>
+				<ice:outputText value="Developpeur:"></ice:outputText>
+				<ice:inputText value="#{gameAddMB.gameAdd.developerProduct}">
+				</ice:inputText>
+				<ice:outputText value="Editeur:"></ice:outputText>
+				<ice:inputText value="#{gameAddMB.gameAdd.editorProduct}">
+				</ice:inputText>
+			</ice:panelGrid>
+
+			<ice:panelGrid columns="2">
+				<ice:outputText value="Platform:"></ice:outputText>
+				<ice:selectOneMenu partialSubmit="true"
+					valueChangeListener="#{gameAddMB.platformAddChanged}">
+					<f:selectItems value="#{gameAddMB.platformAddItem}" />
+				</ice:selectOneMenu>
+				<ice:outputText value="Type:"></ice:outputText>
+				<ice:selectManyListbox size="5" partialSubmit="true"
+					value="#{gameAddMB.listIdTypesAdd}">
+					<f:selectItems value="#{gameAddMB.typeAddItem}" />
+				</ice:selectManyListbox>
+				<ice:outputText value="Description:"></ice:outputText>
+				<ice:inputTextarea value="#{gameAddMB.gameAdd.descriptionProduct}"
+					style="width: 200px; height: 75px"></ice:inputTextarea>
+			</ice:panelGrid>
+		</ice:panelGrid></div>
+	
+		<div>
+			<ice:panelGrid  columns="2" style="width:100% text-align: left; border-bottom-width: medium; border-bottom-style: solid; border-top-style: solid; border-left-color: #3B6CFF; border-top-color: #3B6CFF; border-right-color: #3B6CFF; border-left-style: solid; border-right-width: medium; border-right-style: solid; border-left-width: medium; border-bottom-color: #3B6CFF; border-top-width: medium">
+		<ice:outputText value="Images:"></ice:outputText>
+		<ice:inputFile id="inputFileComponent1"
+			actionListener="#{gameAddMB.uploadActionListener}" autoUpload="true"
+			uploadDirectory="upload" disabled="#{gameAddMB.disabilityTableImage}" fileNamePattern=".+\.(png|jpg|ejpg)$" />
+			 	<ice:outputText value=""></ice:outputText>
+			 <ice:dataTable
+			binding="#{gameAddMB.imageDataTable}" value="#{gameAddMB.listImageUrl}"
+			var="imageUrl" rules="all" border="1">
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="fileName"></ice:outputText>
+				</f:facet>
+				<ice:outputText value="#{imageUrl}"></ice:outputText>
+			</ice:column>
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value=""></ice:outputText>
+				</f:facet>
+				<h:commandButton image="/images/icons/view.gif"
+					action="#{gameAddMB.openPopupEdit}">
+
+
+				</h:commandButton>
+				<h:commandButton image="/images/icons/delete.gif"
+					action="#{gameAddMB.removeUploadedFile}">
+
+
+				</h:commandButton>
+			</ice:column>
+		</ice:dataTable>
+		</ice:panelGrid></div>
+		<div align="center"><ice:panelGroup columrns="2"
+			style="background-color: #3B6CFF; width: 100%">
+			<ice:commandButton value="Valider" action="#{gameAddMB.creatGame}"></ice:commandButton>
+			<ice:commandButton value="Annuler"  action="toAdminGame"></ice:commandButton>
+		</ice:panelGroup></div>
+	</ice:panelGrid>
+<!-- 	=========================================
+			"          Popup                         "
+			==========================================
+			 -->
+			<div style="z-index: 10; position: absolute">
+			<ice:panelPopup
+				modal="false" draggable="true" rendered="#{gameAddMB.visibleEdit}"
+				style="z-index: 1000;   position: absolute; ">
+				<f:facet name="header">
+					<ice:panelGrid width="100%" cellpadding="0" cellspacing="0"
+						columns="2">
+						<div align="center"><ice:outputText
+							value="visualisation de l'image" /></div>
+						<div align="right"><ice:commandButton value="X"
+							action="#{gameAddMB.closePopupEdit}" style="font-size: 6pt" /></div>
+					</ice:panelGrid>
+				</f:facet>
+				<f:facet name="body">
+					<ice:panelGrid columns="1">
+					<ice:graphicImage value="#{gameAddMB.selectedImageRow}"></ice:graphicImage>
+
+
+						<div align="center"> 
+							<ice:commandButton value="Annuler" action="#{gameAddMB.closePopupEdit}" />
+							</div>
+
+					</ice:panelGrid>
+				</f:facet>
+
+			</ice:panelPopup></div>
+</div>
+
+</ice:form></ui:define>
+</ui:composition>

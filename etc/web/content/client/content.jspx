@@ -1,0 +1,86 @@
+<ice:form xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	
+	<div align="right"><ui:include src="/content/client/login.jspx" /></div>
+	<ice:panelGrid id="panel" columns="2" border="1" width="100%">
+		<ice:panelGroup>
+			<div align="center">
+					<ice:panelTabSet binding="#{CommonSession.panelTabSet}" selectedIndex="#{CommonSession.selectedIndex}" >
+						<ice:panelTab id="home" label="Accueil" >
+							<f:subview id="subHome">
+								<ui:include src="/content/client/research.jspx" />
+								<table border="0" width="100%">
+									<tr>
+									<td valign="top" width="150px"><ui:include src="/content/client/navigation_home.jspx" /></td>
+									<td valign="top" align="left"><ui:include src="/content/client/home.jspx" /></td>
+									</tr>
+								</table>
+							</f:subview>
+						</ice:panelTab>
+						<ice:panelTab id="games" label="Jeux video">
+							<f:subview id="subGame">
+								<ui:include src="/content/client/research_game.jspx" />
+								<table border="0" width="100%">
+									<tr>
+									<td valign="top" width="150px"><ui:include src="/content/client/navigation_games.jspx" /></td>
+									<td valign="top" align="left"><ui:include src="/content/client/games.jspx" /></td>										
+									</tr>								
+								</table>								
+							</f:subview>
+						</ice:panelTab>
+						<ice:panelTab id="consoles" label="Console" >
+							<f:subview id="subConsole">
+								<ui:include src="/content/client/research_console.jspx" />
+								<table border="0" width="100%">
+									<tr>
+									<td valign="top" width="150px"><ui:include src="/content/client/navigation_consoles.jspx" /></td>
+									<td valign="top" align="left"><ui:include src="/content/client/consoles.jspx" /></td>										
+									</tr>								
+								</table>	
+							</f:subview>
+						</ice:panelTab>
+						<ice:panelTab id="accessories" label="Accessoires">							
+							<f:subview id="subAccessory">
+								<ui:include src="/content/client/research_accessory.jspx" />
+								<table border="0" width="100%">
+									<tr>
+									<td valign="top" width="150px"><ui:include src="/content/client/navigation_accessories.jspx" /></td>
+									<td valign="top" align="left"><ui:include src="/content/client/accessories.jspx" /></td>										
+									</tr>								
+								</table>								
+							</f:subview>
+						</ice:panelTab>
+						<ice:panelTab id="cart" label="Panier" >
+							<f:subview id="subCart">							
+							<table border="0" width="100%">
+								<tr>
+									<td valign="top" width="150px"><ui:include src="/content/client/navigation_home.jspx" /></td>
+									<td valign="top" align="left"><ui:include src="/content/client/showCart.jspx" /></td>
+								</tr>
+							</table>
+							</f:subview>
+						</ice:panelTab>
+					</ice:panelTabSet>
+				</div>
+		</ice:panelGroup>
+		<ice:panelGroup rendered="#{!CommonSession.cartSelected}" style="text-align: center;font-size: 1em;" >
+				<ice:outputText rendered="#{CommonSession.cartEmpty}" value="Votre panier est vide :)" style="font-weight: bold; vertical-align: top"/>
+				<ice:panelGroup rendered="#{!CommonSession.cartEmpty}" width="150px" style="font-weight: bold; vertical-align: top">
+					<ice:outputText style="font-weight: bold;" value="#{CommonSession.nbrArticles} articles"/><br/><br/>
+					<ice:outputText value="Prix total: #{CommonSession.priceTotal} ">
+					 <f:convertNumber maxFractionDigits="2"
+                                    groupingUsed="true"
+                                    currencySymbol="Euro"
+                                    maxIntegerDigits="7"
+                                    type="currency"/>
+					</ice:outputText><br/><br/>
+					<h:commandButton value="Detailler" action="#{CommonSession.showCart}"/>
+					<h:commandButton value="Vider" action="#{CommonSession.cleanCartHome}"/>
+				</ice:panelGroup>
+		</ice:panelGroup>
+		
+	</ice:panelGrid>
+</ice:form>

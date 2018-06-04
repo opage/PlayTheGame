@@ -1,0 +1,108 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	style="width: 170px">
+	
+	
+	<!--
+citeres de Platforme
+-->
+	<ice:panelCollapsible id="linkPanel"
+	expanded="true">
+	<f:facet name="header">
+		<ice:panelGroup style="text-align: center;">
+			<ice:commandLink value="Platforme"
+				action="#{listProduct.getProductsByPlatform}">
+				<f:param name="idPlatform" value="-1" />
+			</ice:commandLink>
+		</ice:panelGroup>
+	</f:facet>
+	<ice:panelSeries columns="1" cellpadding="4" cellspacing="4"
+		width="100%" value="#{listProduct.platforms}" var="platform">
+		<ice:panelGrid columns="1">
+			<ice:commandLink value="#{platform.namePlatform}"
+				action="#{listProduct.getProductsByPlatform}">
+				<f:param name="idPlatform" value="#{platform.idPlatform}" />
+
+			</ice:commandLink>
+
+		</ice:panelGrid>
+	</ice:panelSeries>
+	
+</ice:panelCollapsible>
+<!--
+citeres de Type de Produits
+-->
+ <ice:panelCollapsible id="TypeProductlinkPanel" expanded="true">
+	<f:facet name="header">
+		<ice:panelGroup style="text-align: center;">
+			<ice:commandLink value="Type de Produits"
+				action="#{listProduct.getProductsByPlatform}">
+				<f:param name="TypeProduct" value="Product" />
+			</ice:commandLink>
+		</ice:panelGroup>
+	</f:facet>
+	
+		<ice:panelGrid columns="1" style="text-align: left; ">
+			<ice:commandLink value="Jeux videos"
+				action="#{listProduct.getProductsByPlatform}">
+				<f:param name="TypeProduct" value="Game" />
+
+			</ice:commandLink>
+			
+			<ice:commandLink value="Consoles"
+				action="#{listProduct.getProductsByPlatform}">
+				<f:param name="TypeProduct" value="Console" />
+
+			</ice:commandLink>
+			<ice:commandLink value="Accessoires"
+				action="#{listProduct.getProductsByPlatform}">
+				<f:param name="TypeProduct" value="Accessory" />
+
+			</ice:commandLink>
+
+		</ice:panelGrid>
+	
+</ice:panelCollapsible>
+<!--
+citeres de prix
+-->
+<ice:panelCollapsible id="PricePanel" expanded="true">
+	<f:facet name="header">
+		<ice:panelGroup style="text-align: center;">
+			<ice:commandLink value="Prix"
+				action="#{listProduct.getProductsByPlatform}">
+				<f:param name="paramPrice" value=" " />
+			</ice:commandLink>
+		</ice:panelGroup>
+	</f:facet>
+	
+		
+		<ice:panelGrid columns="1" style="text-align: left; ">
+			<ice:commandLink value="0.01 Euro - 29.99 Euro"
+				action="#{listProduct.getProductsByPlatform}">
+				<f:param name="paramPrice" value=" and p.priceProduct-p.priceProduct*discountProduct/100 BETWEEN 0 AND 29.99" />
+
+			</ice:commandLink>
+			<ice:commandLink value="30 Euro - 49.99 Euro"
+				action="#{listProduct.getProductsByPlatform}">
+				<f:param name="paramPrice" value=" and p.priceProduct-p.priceProduct*discountProduct/100 BETWEEN 30 AND 49.99" />
+
+			</ice:commandLink>
+			<ice:commandLink value="50 Euro - 99.99 Euro"
+				action="#{listProduct.getProductsByPlatform}">
+				<f:param name="paramPrice" value=" and p.priceProduct-p.priceProduct*discountProduct/100 BETWEEN 50 AND 99.99" />
+
+			</ice:commandLink>
+			<ice:commandLink value="100 Euro et plus"
+				action="#{listProduct.getProductsByPlatform}">
+				<f:param name="paramPrice" value=" and p.priceProduct-p.priceProduct*discountProduct/100 >= 100" />
+
+			</ice:commandLink>
+
+		</ice:panelGrid>
+	
+</ice:panelCollapsible>
+</div>

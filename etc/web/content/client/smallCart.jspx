@@ -1,0 +1,38 @@
+	<ice:panelGrid id="panel" border="1" width="100%"
+		xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:ui="http://java.sun.com/jsf/facelets"
+			xmlns:h="http://java.sun.com/jsf/html"
+			xmlns:f="http://java.sun.com/jsf/core"
+			xmlns:ice="http://www.icesoft.com/icefaces/component">
+			
+		<f:facet name="header">
+	    	<h:outputText value="Votre panier"/>
+	  	</f:facet>
+		<ice:panelGroup>
+			<h:panelGroup rendered="#{CommonSession.cartEmpty}">
+				<h:outputText value="Votre panier est vide :)" />
+			</h:panelGroup>
+			<h:panelGrid rendered="#{!CommonSession.cartEmpty}">
+				<h:dataTable id="items" value="#{CommonSession.items}" var="item"
+					rowClasses="oddRow, evenRow" headerClass="tableHeader">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Nom" />
+						</f:facet>
+						<h:outputText value="#{item.product.nameProduct}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Nb" />
+						</f:facet>
+						<h:outputText value="#{item.quantity}" />
+					</h:column>
+				</h:dataTable>
+				<div align="right">Prix total: #{CommonSession.priceTotal}</div>
+			</h:panelGrid>
+		</ice:panelGroup>
+	</ice:panelGrid>
+
+
+
+

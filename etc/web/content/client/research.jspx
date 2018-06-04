@@ -1,0 +1,16 @@
+<f:view xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	>
+
+<table>
+<tr>
+<td><ice:inputText id="researchInputText"  value="#{listProduct.keyWords}" binding="#{listProduct.inputTextKeyword}"
+ action="#{listProduct.getProductsByPlatform}"/></td>
+<td><h:commandButton id="researchOKButton" value="OK" action="#{listProduct.getProductsByPlatform}"/></td>
+</tr>
+</table>
+<ice:panelCollapsible expanded="false" >
+</ice:panelCollapsible>
+
+</f:view>

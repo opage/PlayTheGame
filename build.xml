@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+==============================================================================  
+= NOTE : This is a simplified version of the build system
+= 		for the Ecom Project
+==============================================================================
+-->
+<project xmlns:jonas="http://jonas.ow2.org" name="PlayTheGame" default="install" basedir=".">
+
+	<!--
+==============================================================================
+=	Properties imported (copied) from jonas-common.xml
+==============================================================================
+-->
+
+	<!-- build.properties hold the properties that can be customized -->
+	<property file="build.properties" />
+	<!-- some properties are build from environment variables -->
+	<property environment="myenv" />
+	<property name="jonas.root" value="${myenv.JONAS_ROOT}" />
+	<property name="javac.debug" value="on" />
+	<property name="javac.optimize" value="off" />
+	<property name="javac.deprecation" value="off" />
+	<property name="javac.verbose" value="off" />
+	<property name="javac.compiler" value="modern" />
+	<property name="javac.nowarn" value="off" />
+
+	<!-- Set the uncustomizable properties -->
+	<property name="src.dir" value="src/java" />
+	<property name="resources.dir" value="etc" />
+	<property name="etc.web.dir" value="${resources.dir}/web" />
+	<property name="jars.dir" value="jars" />
+	<property name="xml.dir" value="${etc.web.dir}/WEB-INF" />
+	<property name="icefacesJars.dir" value="icefacesJars/" />
+	<property name="dist.dir" value="output" />
+	<property name="dist.clients.dir" value="${dist.dir}/clients" />
+	<property name="dest.clients.dir" value="${dist.clients.dir}" />
+	
+
+	<condition property="examples.classes.dir" value="${classes.dir}">
+		<available file="${classes.dir}" />
+	</condition>
+	<condition property="ecom.classes.dir" value="./classes">
+		<not>
+			<available file="${classes.dir}" />
+		</not>
+	</condition>
+	<condition property="ecom.apis.dir" value="${apis.dir}">
+		<available file="${apis.dir}" />
+	</condition>
+	<condition property="ecom.apis.dir" value="./apis">
+		<not>
+			<available file="${apis.dir}" />
+		</not>
+	</condition>
+	<condition property="jonas.base" value="${myenv.JONAS_BASE}">
+		<available file="${myenv.JONAS_BASE}" />
+	</condition>
+	<condition property="jonas.base" value="${jonas.root}">
+		<available file="${jonas.root}" />
+	</condition>
+	<property name="lib.dir" value="${jonas.root}/lib" />
+
+	<!-- The classpath to be used to compile ecom -->
+	<path id="base.classpath">
+		<pathelement location="${ecom.classes.dir}" />
+		<pathelement location="${jonas.base}/conf" />
+		<fileset dir="${jonas.root}">
+			<!-- In that bundle we have the @OSGiResource -->
+			<include name="repositories/maven2-internal/**/easybeans-*.jar" />
+			<include name="repositories/maven2-internal/**/javaee-api-*.jar" />
+			<include name="lib/common/easybeans-ant-tasks.jar" />
+			<include name="lib/bootstrap/felix-launcher.jar" />
+		</fileset>
+		<fileset dir="${icefacesJars.dir}">
+			<include name="/*.jar" />
+		</fileset>
+		<fileset dir="${lib.dir}">
+			<!-- Note: this classpath includes client.jar (client container) -->
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<!-- Set the properties -->
+	<property name="dist.clients.dir" value="${jonas.base}/clients" />
+	<property name="dist.deploy.dir" value="${jonas.base}/deploy" />
+	<property name="dist.webapps.dir" value="${jonas.base}/deploy" />
+	<!-- EJB go in deploy directory -->
+	<property name="ejb.dir" value="${dist.deploy.dir}" />
+	<!-- WAR go in webapps directory in standalone mode-->
+	<property name="war.dir" value="${dist.webapps.dir}" />
+	<!-- EAR go in deploy directory in standalone mode-->
+	<property name="ear.dir" value="${dist.deploy.dir}" />
+	<!-- Client go in clients directory in standalone mode-->
+	<property name="client.dir" value="${dist.clients.dir}" />
+
+	<!--
+==============================================================================
+=	End of properties imported from jonas-common.xml
+==============================================================================
+	-->
+
+	<!-- Build exploded archives or not ? -->
+	<property name="archives.exploded" value="false" />
+
+	<!--
+==============================================================================
+=	Targets imported (copied) from jonas-common.xml
+==============================================================================
+	-->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<target name="init">
+		<!-- directories building -->
+		<mkdir dir="${ecom.classes.dir}" />
+		<mkdir dir="${ecom.apis.dir}" />
+		<mkdir dir="${dist.clients.dir}" />
+		<mkdir dir="${dest.clients.dir}" />
+		<mkdir dir="${dist.deploy.dir}" />
+		<mkdir dir="${dist.webapps.dir}" />
+		<mkdir dir="${jars.dir}" />
+		<!-- Set the war.dd.file property to 'empty-value' if not set -->
+		<condition property="war.dd.file" value="${war.dd}">
+			<available file="${war.dd}" />
+		</condition>
+		<condition property="war.dd.file" value="empty-value">
+			<not>
+				<available file="${war.dd}" />
+			</not>
+		</condition>
+		<!-- Set the ejb.persistence.dd.file property to 'empty-value' if not set -->
+		<condition property="ejb.persistence.dd.file" value="${ejb.persistence.dd}">
+			<available file="${ejb.persistence.dd}" />
+		</condition>
+		<condition property="ejb.persistence.dd.file" value="empty-value">
+			<not>
+				<available file="${ejb.persistence.dd}" />
+			</not>
+		</condition>
+
+		<!-- Ant tasks provided by EasyBeans -->
+		<!-- Should be useless for the simplified build system -->
+		<typedef resource="org/ow2/easybeans/ant/antlib.xml" uri="http://jonas.ow2.org">
+			<classpath refid="base.classpath" />
+		</typedef>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<target name="compile" description="Compile classes" depends="init">
+		<javac srcdir="${src.dir}" destdir="${ecom.classes.dir}" debug="${javac.debug}" deprecation="${javac.deprecation}" optimize="${javac.optimize}" verbose="${javac.verbose}" compiler="${javac.compiler}" nowarn="${javac.nowarn}">
+			<classpath refid="base.classpath" />
+		</javac>
+	</target>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<target name="clean">
+		<!-- directories removal -->
+		<delete dir="${ecom.classes.dir}" />
+		<delete dir="${ecom.apis.dir}" />
+		<delete dir="${rar.classes.dir}" />
+		<delete dir="${jars.dir}" />
+		<delete dir="${dist.dir}" />
+		<delete dir="${dest.clients.dir}" />
+		<delete file="${ear.dir}/ecomV2.ear" />
+		<!-- <delete file="${war.dir}/ecomV2.war" /> -->
+	</target>
+
+	<!--
+==============================================================================
+=	End of targets imported from jonas-common.xml
+==============================================================================
+-->
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<target name="install.ejb">
+		<!-- The EjbJar with the following EJB3: -->
+		<jar destfile="${jars.dir}/ecomV2.jar">
+			<metainf dir="etc/web/WEB-INF">
+				<include name="persistence.xml" />
+			</metainf>
+			<fileset dir="${ecom.classes.dir}">
+				<patternset>
+					<include name="ecom/jonas/entity/*.class" />
+					<include name="ecom/jonas/session/*.class" />
+				</patternset>
+			</fileset>
+		</jar>
+	</target>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->	
+	<target name="install.war">
+		<!-- The WebApp -->
+		<war destfile="${jars.dir}/ecomV2.war" webxml="${xml.dir}/web.xml">
+			<classes dir="${ecom.classes.dir}">
+				<patternset>
+					<include name="ecom/jonas/managed/*.class" />
+					<include name="ecom/jonas/servlet/*.class" />
+					<include name="ecom/jonas/managed/validator/*.class" />				
+				</patternset>
+			</classes>
+			<lib dir="icefacesJars/">
+			</lib>
+			<webinf file="${xml.dir}/faces-config.xml" />
+			<fileset dir="${etc.web.dir}" />
+		</war>		
+		<ear destfile="${ear.dir}/ecomV2.ear" appxml="${xml.dir}/application.xml" update="true">
+			<fileset dir="${jars.dir}" includes="*.war" />
+		</ear>		
+	</target>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<target name="install.ear" depends="compile, install.ejb, install.war">
+		<!-- Package the EAR Sample -->
+		<ear destfile="${ear.dir}/ecomV2.ear" appxml="${xml.dir}/application.xml">
+			<fileset dir="${jars.dir}" includes="*.jar,*.war" />
+		</ear>
+	</target>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Install example -->
+	<target name="install" depends="clean, init, compile, install.ear" description="Install our ecom project in a deployable directory">
+		<!-- Client -->
+		<jar jarfile="${dest.clients.dir}/customer-ecom.jar">
+			<manifest>
+				<attribute name="Main-Class" value="${Client.class}" />
+			</manifest>
+			<fileset dir="${ecom.classes.dir}">
+				<patternset refid="client.patternset" />
+			</fileset>
+		</jar>
+	</target>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Following line added by F. Boyer -->
+	<!-- Define a servlet client -->
+	<!--<property name="servlet.client" value="true" />-->
+	<target name="run.client">
+		<java fork="true" classname="${Client.class}">
+			<classpath refid="base.classpath" />
+		</java>
+	</target>
+
+	<!-- Pattern for Client -->
+	<patternset id="client.patternset">
+		<include name="ecom/jonas/client/*.class" />
+		<include name="ecom/jonas/entity/*.class" />
+		<include name="ecom/jonas/session/*.class" />
+		<include name="ecom/jonas/session/*Remote.class" />
+	</patternset>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<macrodef name="jonas-client">
+		<attribute name="ear" />
+		<attribute name="client" />
+		<sequential>
+			<!-- JOnAS Client Container Classpath -->
+			<path id="client.path">
+				<pathelement location="${jonas.root}/lib/client.jar" />
+				<pathelement location="${jonas.root}/lib/jonas-client.jar" />
+			</path>
+		</sequential>
+	</macrodef>
+
+	<!-- Main class of the client -->
+	<property name="Client.class" value="ecom.jonas.client.Client" />
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<target name="run:not-secured-client" description="Execute the Not Secured Application Client">
+		<jonas-client ear="${ear.dir}/ecomV2.ear" client="not-secured-application-client.jar" />
+	</target>
+
+</project>
+

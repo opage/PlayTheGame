@@ -1,0 +1,262 @@
+<f:view xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<body>	
+	<h:panelGroup rendered="#{CommonSession.productListView}">
+		<h:panelGroup rendered="#{listProduct.listView}">
+			<div><ice:dataTable rows="3" id="inventoryList"
+				value="#{listProduct.listproducts}" var="product">
+
+				<ice:column style="text-align: left ;width: 700px;" >
+					<!-- Product Image -->
+					<ice:panelGrid columns="2" style="width: 100%">
+
+						<ice:panelGroup style="padding: 10px;" >
+							<ice:graphicImage 
+								value="#{product.urlImageProduct}" width="69"
+								height="97" style="float:left; padding: 10" />
+						<ice:panelGroup style="margin: 10px 10px 10px 85px; " >
+								<ice:commandLink value="#{product.nameProduct}"
+									action="#{listProduct.changeToProductView}"
+									style="font-weight:bold;">
+									<f:setPropertyActionListener target="#{CommonSession.productChosen}"
+										value="#{product}" />
+								</ice:commandLink>
+								<br/>
+								<ice:outputText id="ratingProduct"
+									value="#{product.platform.namePlatform}" />
+								<ice:outputText id="releaseDateProduct"
+									value="Date de sortie : #{product.releaseDateProduct}" />
+								<!-- ratingProduct -->
+
+								
+								<!-- priceProduct -->
+							</ice:panelGroup>
+						</ice:panelGroup>
+						<ice:column style="text-align: right">
+							<!-- Product Caddie -->
+							<ice:panelGroup style="text-align: right;">
+						<ice:panelGroup rendered="#{product.discountProduct>0}">
+						<ice:outputText id="reduced_price"  
+						style="color: #2B5ED5; font-style: italic; font-size: 18px;"
+									value="#{product.priceProduct-(product.priceProduct*product.discountProduct/100)}"
+									 >
+									  <f:convertNumber maxFractionDigits="2"
+                                    groupingUsed="true"
+                                    currencySymbol="Euro"
+                                    maxIntegerDigits="7"
+                                    type="currency"/>
+									</ice:outputText>
+									<ice:outputText 	value="#{product.discountProduct}"
+									style="color: #EE3211; font-style: normal; font-size: 16px">
+									 <f:convertNumber maxFractionDigits="2"
+                                    groupingUsed="true"
+                                    currencySymbol="%"
+                                    maxIntegerDigits="7"
+                                    type="currency"/>
+									</ice:outputText>
+								
+									<ice:outputText value="#{product.priceProduct}" 
+									style="color: #2B5ED5; font-style: normal; font-size: 16px;  text-decoration: line-through">
+									<f:convertNumber maxFractionDigits="2"
+                                    groupingUsed="true"
+                                    currencySymbol="Euro"
+                                    maxIntegerDigits="7"
+                                    type="currency"/>
+									</ice:outputText>
+						</ice:panelGroup>
+						<ice:panelGroup rendered="#{!(product.discountProduct>0)}">
+						<ice:outputText id="reduced_price" style="color: #2B5ED5; font-style: italic; font-size: 18px;"
+									value="#{product.priceProduct} ">
+									 <f:convertNumber maxFractionDigits="2"
+                                    groupingUsed="true"
+                                    currencySymbol="Euro"
+                                    maxIntegerDigits="7"
+                                    type="currency"/>
+									</ice:outputText>
+								
+						</ice:panelGroup>
+								<ice:commandButton image="/images/addToCart.gif" width="30"
+									action="#{CommonSession.addToCart}">
+									<f:setPropertyActionListener target="#{CommonSession.productChosen}"
+										value="#{product}" />
+								</ice:commandButton>
+							</ice:panelGroup>
+						</ice:column>
+					</ice:panelGrid>
+				</ice:column>
+			</ice:dataTable> <h:panelGrid rendered="true">
+				<!-- Paginator with page controls -->
+				<ice:dataPaginator bonding="#{ListProduct.dataPaginator}"
+					id="dataScroll_3" for="inventoryList" paginator="true" fastStep="8"
+					paginatorMaxPages="2" rowsCountVar="7">
+					<f:facet name="first">
+						<ice:graphicImage
+							url="./xmlhttp/css/xp/css-images/arrow-first.gif"
+							style="border:none;" title="First Page" />
+					</f:facet>
+					<f:facet name="last">
+						<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif"
+							style="border:none;" title="Last Page" />
+					</f:facet>
+					<f:facet name="previous">
+						<ice:graphicImage
+							url="./xmlhttp/css/xp/css-images/arrow-previous.gif"
+							style="border:none;" title="Previous Page" />
+					</f:facet>
+					<f:facet name="next">
+						<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif"
+							style="border:none;" title="Next Page" />
+					</f:facet>
+					<f:facet name="fastforward">
+						<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-ff.gif"
+							style="border:none;" title="Fast Forward" />
+					</f:facet>
+					<f:facet name="fastrewind">
+						<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-fr.gif"
+							style="border:none;" title="Fast Backwards" />
+					</f:facet>
+				</ice:dataPaginator>
+			</h:panelGrid> <!-- Display counts about the table and the currently displayed page -->
+			<ice:dataPaginator id="dataScroll_2" for="inventoryList"
+				rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCount"
+				firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex"
+				pageCountVar="pageCount" pageIndexVar="pageIndex">
+				<ice:outputFormat
+					value="{0} produits trouves, affiche {1} produit(s), de {2} a {3}. Page {4} / {5}."
+					styleClass="standard" style="font-size: 0.7em;">
+					<f:param value="#{rowsCount}" />
+					<f:param value="#{displayedRowsCount}" />
+					<f:param value="#{firstRowIndex}" />
+					<f:param value="#{lastRowIndex}" />
+					<f:param value="#{pageIndex}" />
+					<f:param value="#{pageCount}" />
+				</ice:outputFormat>
+			</ice:dataPaginator></div>   
+	   	</h:panelGroup>    
+	   	
+	   	<h:panelGroup rendered="#{listProduct.productView}">
+	   		<h1>#{CommonSession.productChosen.name}</h1>
+	   		<ice:panelGrid columns="1" style="text-align: left ;width: 700px;" >
+					<!-- Product Image -->
+					<ice:panelGrid columns="2" style="width: 100%">
+
+						<ice:panelGroup style="padding: 10px;" >
+							<ice:graphicImage 
+								value="#{CommonSession.productChosen.urlImageProduct}" width="69"
+								height="97" style="float:left; padding: 10" />
+						<ice:panelGroup style="margin: 10px 10px 10px 85px; " >
+								<ice:commandLink value="#{CommonSession.productChosen.nameProduct}"
+									action="#{listProduct.changeToProductView}"
+									style="font-weight:bold;">
+									<f:setPropertyActionListener target="#{CommonSession.productChosen}"
+										value="#{CommonSession.productChosen}" />
+								</ice:commandLink>
+								<br/>
+								<ice:outputText id="ratingProduct"
+									value="#{CommonSession.productChosen.platform.namePlatform}" />
+								<ice:outputText id="releaseDateProduct"
+									value="Date de sortie : #{CommonSession.productChosen.releaseDateProduct}" />
+								<!-- ratingProduct -->
+
+								
+								<!-- priceProduct -->
+							</ice:panelGroup>
+						</ice:panelGroup>
+						<ice:column style="text-align: right">
+							<!-- Product Caddie -->
+							<ice:panelGroup style="text-align: right;">
+						<ice:panelGroup rendered="#{CommonSession.productChosen.discountProduct>0}">
+						<ice:outputText id="reduced_price"  
+						style="color: #2B5ED5; font-style: italic; font-size: 18px;"
+									value="#{CommonSession.productChosen.priceProduct-(CommonSession.productChosen.priceProduct*CommonSession.productChosen.discountProduct/100)}"
+									 >
+									  <f:convertNumber maxFractionDigits="2"
+                                    groupingUsed="true"
+                                    currencySymbol="Euro"
+                                    maxIntegerDigits="7"
+                                    type="currency"/>
+									</ice:outputText>
+									<ice:outputText 	value="#{CommonSession.productChosen.discountProduct}"
+									style="color: #EE3211; font-style: normal; font-size: 16px">
+									 <f:convertNumber maxFractionDigits="2"
+                                    groupingUsed="true"
+                                    currencySymbol="%"
+                                    maxIntegerDigits="7"
+                                    type="currency"/>
+									</ice:outputText>
+								
+									<ice:outputText value="#{CommonSession.productChosen.priceProduct}" 
+									style="color: #2B5ED5; font-style: normal; font-size: 16px;  text-decoration: line-through">
+									<f:convertNumber maxFractionDigits="2"
+                                    groupingUsed="true"
+                                    currencySymbol="Euro"
+                                    maxIntegerDigits="7"
+                                    type="currency"/>
+									</ice:outputText>
+						</ice:panelGroup>
+						<ice:panelGroup rendered="#{!(CommonSession.productChosen.discountProduct>0)}">
+						<ice:outputText id="reduced_price" style="color: #2B5ED5; font-style: italic; font-size: 18px;"
+									value="#{CommonSession.productChosen.priceProduct} ">
+									 <f:convertNumber maxFractionDigits="2"
+                                    groupingUsed="true"
+                                    currencySymbol="Euro"
+                                    maxIntegerDigits="7"
+                                    type="currency"/>
+									</ice:outputText>
+								
+						</ice:panelGroup>
+								<ice:commandButton image="/images/addToCart.gif" width="30"
+									action="#{CommonSession.addToCart}">
+									<f:setPropertyActionListener target="#{CommonSession.productChosen}"
+										value="#{CommonSession.productChosen}" />
+								</ice:commandButton>
+							</ice:panelGroup>
+						</ice:column>
+					</ice:panelGrid>
+						<ice:panelGroup style="padding: 10px;" >
+						#{CommonSession.productChosen.descriptionProduct}
+						</ice:panelGroup>
+				</ice:panelGrid>
+	   		
+	   		
+	   		
+	   		<h:commandLink value="Return to HOME" action="#{listProduct.changeToListView}">
+	        </h:commandLink>
+	   	</h:panelGroup>
+   	</h:panelGroup>
+   	
+   	<h:panelGroup rendered="#{CommonSession.signup}">
+   		<ui:include src="/signUp.jspx" />
+   	</h:panelGroup>
+   	
+   	<h:panelGroup rendered="#{CommonSession.signupValidate}">
+		<ice:outputText value="Felicitation, votre compte est bien cree" /><br/>
+		<ice:commandButton value="Continuer vos achats" action="#{CommonSession.changeToHomeView}"/>
+   	</h:panelGroup>
+   	  	
+   	<h:panelGroup rendered="#{CommonSession.loginClientView}">
+   		
+   		<ice:outputText binding="#{CommonSession.loginMessageError}" />
+   		
+   		<ice:panelGrid columns="2" border="1">
+   			<ice:outputText value="Email" />
+   			<ice:inputText binding="#{CommonSession.emailLoginCus}" size="30"/>
+   			
+   			<ice:outputText value="Mot de passe" />
+   			<ice:inputSecret binding="#{CommonSession.passworLoginCus}" size="30"/>
+   		</ice:panelGrid>
+   		
+   		<ice:commandButton value="Se connecter" action="#{CommonSession.loginValidate}"/>
+   		<ice:commandButton value="Continuer vos achats" action="#{CommonSession.changeToHomeView}"/>
+   	</h:panelGroup>
+   	
+   	<h:panelGroup rendered="#{CommonSession.loggedView}">
+		Salut #{CommonSession.nameCustomer}	<br/>	
+		<ice:commandButton value="Continuer vos achats" action="#{CommonSession.changeToHomeView}"/>
+   	</h:panelGroup>
+   	  	
+ 	</body>
+
+</f:view>

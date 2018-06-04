@@ -1,0 +1,97 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	
+	<ice:panelGroup rendered="#{CommonSession.showCartView}">
+        <ice:panelGrid id="CartEmpty" rendered="#{CommonSession.cartEmpty}">
+			<h1>Votre panier est vide :)</h1>
+		</ice:panelGrid>	
+		<ice:panelGroup id="CartFull" rendered="#{!CommonSession.cartEmpty}" style="font-style: normal;font-size: 1em;">
+		
+			<ice:outputText value="#{CommonSession.messageCart}"/><br/>
+			<ice:outputText value="Vous n'avez pas assez d'agent dans votre compte" rendered="#{CommonSession.amountNotAccepted }"/>
+		
+			<ice:dataTable border="1" style="padding: 3px" binding="#{CommonSession.dataTable}" id="items" value="#{CommonSession.items}" var="item" headerClass="tableHeader">
+				<ice:column>
+					<f:facet name="header">
+						<ice:outputText id="NameProductCart" value="Nom produit" />
+					</f:facet>
+					<ice:outputText id="ValueNameProductCart" value="#{item.product.nameProduct}" />
+				</ice:column>
+				<ice:column>
+					<f:facet name="header">
+						<ice:outputText id="QuantityProductCart" value="Quantite" />
+					</f:facet>
+					<ice:inputText id="ValueQuantityProductCart" value="#{item.quantity}" />
+				</ice:column>
+				<ice:column>
+					<f:facet name="header">
+						<ice:outputText id="PriceProductCart" value="Sous total" />
+					</f:facet>
+					<ice:outputText id="ValuePriceProductCart" value="#{item.price}" />
+				</ice:column>						
+				<ice:column>
+					<f:facet name="header">
+						<ice:outputText id="DeleteProduct" value="Supprimer" />
+					</f:facet>
+					<ice:commandButton image="/images/removeFromCart.gif" action="#{CommonSession.removeFromCart}">
+	        			<f:setPropertyActionListener target="#{CommonSession.productChosen}" value="#{item.product}"/>
+	            	</ice:commandButton>
+				</ice:column>						
+			</ice:dataTable>
+			<div align="left"><ice:outputText value="Prix total: #{CommonSession.priceTotal} ">
+					 <f:convertNumber maxFractionDigits="2"
+                                    groupingUsed="true"
+                                    currencySymbol="Euro"
+                                    maxIntegerDigits="7"
+                                    type="currency"/>
+					</ice:outputText></div> 		
+			<ice:commandButton value="Actualiser"  action="#{CommonSession.refreshCart}"/>	
+			<ice:commandButton value="Vider le panier"  action="#{CommonSession.cleanCart}"/>
+			<ice:commandButton value="Passer au payement"  action="#{CommonSession.purchaseCart}" disabled="#{!CommonSession.cartValid}" />		
+		</ice:panelGroup>
+	</ice:panelGroup>	
+	
+	<ice:panelGroup rendered="#{CommonSession.purchaseView}">
+		<ice:panelGrid columns="2">
+			<ice:outputText value="Votre solde"/>
+			<ice:outputText value=": #{CommonSession.solde}"/>
+			
+			<ice:outputText value="Prix total"/>
+			<ice:outputText value="Prix total: #{CommonSession.priceTotal} ">
+					 <f:convertNumber maxFractionDigits="2"
+                                    groupingUsed="true"
+                                    currencySymbol="Euro"
+                                    maxIntegerDigits="7"
+                                    type="currency"/>
+					</ice:outputText>
+			
+			<ice:outputText value="Solde apres commande"/>
+			<ice:outputText value=": #{CommonSession.solde - CommonSession.priceTotal}"/>
+		</ice:panelGrid>
+		<br/>
+		<ice:outputText value="Votre adresse"/>
+			<ice:panelGrid columns="2">
+				<ice:outputText value="Rue" />
+				<ice:inputText value="#{CommonSession.rueL}"/>
+				<ice:outputText value="Ville" />
+				<ice:inputText value="#{CommonSession.villeL}"/>
+				<ice:outputText value="Code postal" />
+				<ice:inputText value="#{CommonSession.codePL}"/>
+				<ice:outputText value="Pays" />
+				<ice:inputText value="#{CommonSession.paysL}"/>
+			</ice:panelGrid>		
+		<ice:commandButton value="Retour"  action="#{CommonSession.backToCart}"/>
+		<ice:commandButton value="Payer"  action="#{CommonSession.confirmPurchaseCart}"/>
+	
+	</ice:panelGroup>
+	
+	<ice:panelGroup rendered="#{CommonSession.thanksView}">
+		<ice:outputText value="Merci de votre commande !"/><br/>
+		<ice:outputText value="Vote colis va etre delivre dans un meilleur delais !"/><br/>
+		<ice:commandButton value="Continuer votre achat"  action="#{CommonSession.purchaseDone}"/>			
+	</ice:panelGroup>	
+	
+</f:view>

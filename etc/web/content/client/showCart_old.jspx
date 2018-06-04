@@ -1,0 +1,66 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<ice:outputText id="StepOne" value="1. Mon Panier" style="font-family: Arial;font-weight: bold; font-size: 0.8em;" />
+	<ice:outputText id="StepTwo" value="|2. Mon Compte" style="font-family: Arial;font-weight: bold; font-size: 0.8em;" />
+	<ice:outputText id="StepThree" value="|3. Livraison" style="font-family: Arial;font-weight: bold; font-size: 0.8em;" />
+	<ice:outputText id="StepFour" value="|4. Confirmer la commande" style="font-family: Arial;font-weight: bold; font-size: 0.8em;" />
+	<ice:outputText id="StepFive" value="|5. Paiement" style="font-family: Arial;font-weight: bold; font-size: 0.8em;" />
+	<ice:outputText id="StepSix" value="|6. Fin de commande" style="font-family: Arial;font-weight: bold; font-size: 0.8em;" />
+	<br/><br/>
+	<ice:outputText style="font-weight: bold;font-size: 1em; color: green;" value="Recapitulatif et confirmation de la commande" />	
+	
+	<h:panelGrid rendered="#{CartFace.cartEmpty}">
+		<h1>Votre panier est vide :)</h1>
+	</h:panelGrid>
+	
+	<h:panelGrid rendered="#{!CartFace.cartEmpty}">	
+		<table border="0.5" style="font-size: 0.9em;">
+			<tr>
+				<td>
+					<h:dataTable border="1" style="padding: 3px" binding="#{CartFace.dataTable}" id="items" value="#{CartFace.items}" var="item" headerClass="tableHeader">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Nom produit" />
+							</f:facet>
+							<h:outputText value="#{item.product.nameProduct}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Quantite" />
+							</f:facet>
+							<h:inputText value="#{item.quantity}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Sous total" />
+							</f:facet>
+							<h:outputText value="#{item.price}" />
+						</h:column>						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Supprimer" />
+							</f:facet>
+							<ice:commandButton image="/images/removeFromCart.gif" action="#{CartFace.removeFromCart}">
+                				<f:setPropertyActionListener target="#{CartFace.productChosen}" value="#{item.product}"/>
+                			</ice:commandButton>
+						</h:column>						
+					</h:dataTable>
+				</td>
+			</tr>
+			<tr>
+				<td><div align="right" >Prix total: #{CartFace.priceTotal}</div></td>
+			</tr>
+			<tr>
+				<td>
+					<ice:commandButton value="Actualiser"  action="#{CartFace.refreshCart}"/>	
+					<ice:commandButton value="Vider le panier"  action="#{CartFace.cleanCart}"/>
+					<ice:commandButton value="Valider"  action="#{CartFace.validateCart}"/>
+				</td>
+			</tr>
+		</table>
+	</h:panelGrid>
+</f:view>

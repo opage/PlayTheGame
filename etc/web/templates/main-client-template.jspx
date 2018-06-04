@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<jsp:directive.page contentType="text/html;charset=utf-8" />
+	<f:view>
+		<ice:outputDeclaration doctypeRoot="HTML"
+			doctypePublic="-//W3C//DTD HTML 4.01 Transitional//EN"
+			doctypeSystem="http://www.w3.org/TR/html4/loose.dtd" />
+		<html>
+		<head>
+		<title>PlayTheGame - #{pageTitle}</title>
+		<!--<ice:outputStyle href="./xmlhttp/css/woodstock/woodstock.css" />-->
+		<ice:outputStyle href="./css/woodstock/woodstock.css" />
+		<ice:outputStyle href="./css/main.css" />		
+		<!--<link href="./css/admin.css" rel="stylesheet" type="text/css" />-->		
+		</head>
+		<body>		
+		<div id="header"><ui:insert name="header">
+			<ui:include src="/content/client/header.jspx" />
+			</ui:insert>
+		</div>
+		<div id="page">		
+		<div><ui:insert name="content">        	
+        </ui:insert></div>
+		<div id="footer"><ui:insert name="footer">
+			<ui:include src="/content/client/footer.jspx" />
+		</ui:insert></div>
+		</div>
+		</body>
+		</html>
+	</f:view>
+</jsp:root>

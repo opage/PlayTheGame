@@ -1,0 +1,77 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	style="width: 170px"><!--
+citeres de Platform
+--> <ice:panelCollapsible id="PlatformPanel" expanded="true">
+	<f:facet name="header">
+		<ice:panelGroup style="text-align: center;">
+			<ice:commandLink value="Platforme"
+				action="#{listAccessory.getProductsByPlatform}">
+				<f:param name="idPlatform" value="-1" />
+			</ice:commandLink>
+		</ice:panelGroup>
+	</f:facet>
+	<ice:panelSeries columns="1" cellpadding="4" cellspacing="4"
+		width="100%" value="#{listAccessory.platforms}" var="platform">
+		<ice:panelGrid columns="1">
+			<ice:commandLink value="#{platform.namePlatform}"
+				action="#{listAccessory.getProductsByPlatform}">
+				<f:param name="idPlatform" value="#{platform.idPlatform}" />
+
+			</ice:commandLink>
+
+		</ice:panelGrid>
+	</ice:panelSeries>
+</ice:panelCollapsible>  <!--
+citeres de prix
+--> <ice:panelCollapsible id="PricePanel" expanded="true">
+	<f:facet name="header">
+		<ice:panelGroup style="text-align: center;">
+			<ice:commandLink value="Prix"
+				action="#{listAccessory.getProductsByPlatform}">
+				<f:param name="paramPrice" value=" " />
+			</ice:commandLink>
+		</ice:panelGroup>
+	</f:facet>
+
+
+	<ice:panelGrid columns="1" style="text-align: left; ">
+		<ice:panelGrid columns="1" style="text-align: left; ">
+			<ice:commandLink value="0.01 Euro - 29.99 Euro"
+				action="#{listAccessory.getProductsByPlatform}">
+				<f:param name="paramPrice"
+					value=" and P.priceProduct-P.priceProduct*P.discountProduct/100 BETWEEN 0 AND 29.99" />
+
+			</ice:commandLink>
+		</ice:panelGrid>
+		<ice:panelGrid columns="1" style="text-align: left; ">
+
+			<ice:commandLink value="30 Euro - 49.99 Euro"
+				action="#{listAccessory.getProductsByPlatform}">
+				<f:param name="paramPrice"
+					value=" and P.priceProduct-P.priceProduct*P.discountProduct/100 BETWEEN 30 AND 49.99" />
+
+			</ice:commandLink>
+			</ice:panelGrid>
+			<ice:panelGrid columns="1" style="text-align: left; ">
+
+				<ice:commandLink value="50 Euro - 99.99 Euro"
+					action="#{listAccessory.getProductsByPlatform}">
+					<f:param name="paramPrice"
+						value=" and P.priceProduct-P.priceProduct*P.discountProduct/100 BETWEEN 50 AND 99.99" />
+
+				</ice:commandLink>
+			</ice:panelGrid>
+			<ice:panelGrid columns="1" style="text-align: left; ">
+				<ice:commandLink value="100 Euro et plus"
+					action="#{listAccessory.getProductsByPlatform}">
+					<f:param name="paramPrice"
+						value=" and P.priceProduct-P.priceProduct*P.discountProduct/100 >= 100" />
+
+				</ice:commandLink>
+			</ice:panelGrid>
+		</ice:panelGrid>
+</ice:panelCollapsible></div>

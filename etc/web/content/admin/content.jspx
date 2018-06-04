@@ -1,0 +1,37 @@
+<ice:form xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<div align="center"><ice:panelTabSet>
+		<ice:panelTab id="home" label="Accueil">
+			<f:subview id="subHome">
+				<ui:include src="/content/admin/navigation.jspx" />
+			</f:subview>
+		</ice:panelTab>
+		<ice:panelTab id="articles" label="Articles">
+			<f:subview id="subArticle">
+				<div id="left">
+				<div class="lt_navigation">
+				<div class="nav_header">Gestion des articles</div>
+				<ul>
+					<li><a href="adminPlatform.jspx">Plateformes</a></li>
+					<li><a href="adminType.jspx">Genre de jeux videos</a></li>
+					<li><a href="adminGame.jspx">Jeux videos</a></li>
+				</ul>
+				</div>
+				</div>
+			</f:subview>
+		</ice:panelTab>
+		<ice:panelTab id="orders" label="Commandes">
+			<f:subview id="subOrder">
+				<ui:include src="/content/admin/navigation.jspx" />
+			</f:subview>
+		</ice:panelTab>
+		<ice:panelTab id="customers" label="Clients">
+			<f:subview id="subCustomer">
+				<ui:include src="/content/admin/navigation.jspx" />
+			</f:subview>
+		</ice:panelTab>
+	</ice:panelTabSet></div>
+</ice:form>

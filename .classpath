@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.ow2.jonas.wtp.adapter.core.eid.runtimeClasspathProvider/JOnAS Runtime 5.x"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/backport-util-concurrent.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/commons-collections.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/commons-digester.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/commons-logging.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/FastInfoset.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/icefaces.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/icefaces-comps.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/icefaces-facelets.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/jsf-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/jsf-impl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/jxl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/krysalis-jCharts-1.0.0-alpha-1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Olivier/Desktop/ecom/PlayTheGame/icefacesJars/push-server.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

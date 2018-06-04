@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+    version="1.2">
+    <application>
+		<view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>		
+	</application>
+	<!--Nabil Bensalem-->
+	<managed-bean>
+		<managed-bean-name>clientMB</managed-bean-name>
+		<managed-bean-class>ecom.jonas.managed.clientManaged</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>	
+	<managed-bean>
+		<managed-bean-name>gameMB</managed-bean-name>
+		<managed-bean-class>ecom.jonas.managed.gameManaged</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>accessoryMB</managed-bean-name>
+		<managed-bean-class>ecom.jonas.managed.accessoryManaged</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>accessoryAddMB</managed-bean-name>
+		<managed-bean-class>ecom.jonas.managed.accessoryAddManaged</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>consoleMB</managed-bean-name>
+		<managed-bean-class>ecom.jonas.managed.consoleManaged</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>typeMB</managed-bean-name>
+		<managed-bean-class>ecom.jonas.managed.TypeManaged</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>platformMB</managed-bean-name>
+		<managed-bean-class>ecom.jonas.managed.PlatformManaged</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>gameAddMB</managed-bean-name>
+		<managed-bean-class>ecom.jonas.managed.gameAddManaged</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>consoleAddMB</managed-bean-name>
+		<managed-bean-class>ecom.jonas.managed.consoleAddManaged</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>gameEditMB</managed-bean-name>
+		<managed-bean-class>ecom.jonas.managed.gameEditManaged</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>	
+	<managed-bean>
+		<managed-bean-name>consoleEditMB</managed-bean-name>
+		<managed-bean-class>ecom.jonas.managed.consoleEditManaged</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>accessoryEditMB</managed-bean-name>
+		<managed-bean-class>ecom.jonas.managed.accessoryEditManaged</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>	
+	<managed-bean>
+        <managed-bean-name>listGame</managed-bean-name>
+        <managed-bean-class>ecom.jonas.managed.ListGame</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>   
+    <managed-bean>
+        <managed-bean-name>listConsole</managed-bean-name>
+        <managed-bean-class>ecom.jonas.managed.ListConsole</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean> 
+     <managed-bean>
+        <managed-bean-name>listAccessory</managed-bean-name>
+        <managed-bean-class>ecom.jonas.managed.ListAccessory</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>   
+	<!--Tien Luong-->
+	
+	<managed-bean>
+        <managed-bean-name>listProduct</managed-bean-name>
+        <managed-bean-class>ecom.jonas.managed.ListProduct</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean> 
+    
+    
+    <managed-bean>
+        <managed-bean-name>CommonSession</managed-bean-name>
+        <managed-bean-class>ecom.jonas.managed.CommonSession</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>homeClient</from-outcome>
+			<to-view-id>/homeclient.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>signUpClient</from-outcome>
+			<to-view-id>/homeclient.jsf</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>loginClient</from-outcome>
+			<to-view-id>/loginClient.jsf</to-view-id>
+		</navigation-case>
+		
+	</navigation-rule>  
+	<!--Nabil Bensalem-->
+    <navigation-rule>
+		<display-name>adminGame</display-name>
+		<from-view-id>/adminGame.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>addGame</from-outcome>
+			<to-view-id>/adminAddGame.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>adminConsole</display-name>
+		<from-view-id>/adminConsole.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>addConsole</from-outcome>
+			<to-view-id>/adminAddConsole.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>adminAddConsole</display-name>
+		<from-view-id>/adminAddConsole.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>toAdminConsole</from-outcome>
+			<to-view-id>/adminConsole.jspx</to-view-id>
+			
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>adminGame</display-name>
+		<from-view-id>/adminGame.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>editGame</from-outcome>
+			<to-view-id>/adminEditGame.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>adminAccessory</display-name>
+		<from-view-id>/adminAccessory.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>addAccessory</from-outcome>
+			<to-view-id>/adminAddAccessory.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+	
+		<display-name>adminAccessory</display-name>
+		<from-view-id>/adminAccessory.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>editAccessory</from-outcome>
+			<to-view-id>/adminEditAccessory.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>adminAddAccessory</display-name>
+		<from-view-id>/adminAddAccessory.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>toAdminAccessory</from-outcome>
+			<to-view-id>/adminAccessory.jspx</to-view-id>
+			
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>adminEditAccessory</display-name>
+		<from-view-id>/adminEditAccessory.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>toAdminAccessory</from-outcome>
+			<to-view-id>/adminAccessory.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>adminAddGame</display-name>
+		<from-view-id>/adminAddGame.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>toAdminGame</from-outcome>
+			<to-view-id>/adminGame.jspx</to-view-id>
+			
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>adminEditGame</display-name>
+		<from-view-id>/adminEditGame.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>toAdminGame</from-outcome>
+			<to-view-id>/adminGame.jspx</to-view-id>
+			
+		</navigation-case>
+	</navigation-rule>
+		<navigation-rule>
+		<display-name>adminEditConsole</display-name>
+		<from-view-id>/adminEditConsole.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>toAdminConsole</from-outcome>
+			<to-view-id>/adminConsole.jspx</to-view-id>
+			
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>adminConsole</display-name>
+		<from-view-id>/adminConsole.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>editConsole</from-outcome>
+			<to-view-id>/adminEditConsole.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+    <!-- Validator -->
+	<validator>
+	    <validator-id>InscriptionClientValidator_Client</validator-id>
+	    <validator-class>ecom.jonas.managed.validator.InscriptionClientValidator_Client</validator-class>
+	</validator>
+	
+	<validator>
+	    <validator-id>InscriptionClientValidator_Password</validator-id>
+	    <validator-class>ecom.jonas.managed.validator.InscriptionClientValidator_Password</validator-class>
+	</validator>
+
+	<validator>
+	    <validator-id>InscriptionClientValidator_Birthday</validator-id>
+	    <validator-class>ecom.jonas.managed.validator.InscriptionClientValidator_Birthday</validator-class>
+	</validator>	
+
+	<validator>
+	    <validator-id>InscriptionClientValidator_PhoneNumber</validator-id>
+	    <validator-class>ecom.jonas.managed.validator.InscriptionClientValidator_PhoneNumber</validator-class>
+	</validator>	
+    
+	<!-- Tien Luong -->
+</faces-config>

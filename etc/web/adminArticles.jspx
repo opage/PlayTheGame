@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="/templates/main-admin-template.jspx"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<ui:define name="content">
+
+
+		<div class="content" id="page-1">
+		<h2>Page 1</h2>
+		<p>Text...</p>
+		</div>
+		<div class="content" id="page-2">
+
+		<div id="headerArticls"><ui:insert name="header">
+			<ui:include src="/content/admin/headerArticls.jspx" />
+		</ui:insert></div>
+		<div><ui:insert name="contentArticls">
+			<ui:include src="/content/admin/contentArticls.jspx" />
+		</ui:insert></div>
+
+		</div>
+		<div class="content" id="page-3">
+		<h2>Page 3</h2>
+		<p>Text...</p>
+		</div>
+		<div class="content" id="page-4">
+		 <ui:include src="adminClient.jspx"  />
+		</div>
+		<script src="./script/activatables.js" type="text/javascript"></script>
+		<script type="text/javascript">
+	activatables('page', [ 'page-2', 'page-1', 'page-3', 'page-4' ]);
+	activatables('page', [ 'page-Platform', 'page-Game','page-Type', 'page-Console' ]);
+</script>
+
+
+	</ui:define>
+</ui:composition>

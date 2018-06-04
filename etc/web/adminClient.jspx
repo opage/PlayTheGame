@@ -1,0 +1,150 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<ice:form>
+	<div><ice:outputText value="Recherche: Par Nom:">
+	</ice:outputText>
+	<ice:inputText value="#{clientMB.nameCustomer}">
+
+	</ice:inputText> <ice:panelGrid columns="1">
+		<ice:dataTable binding="#{clientMB.dataTable}"
+			value="#{clientMB.customers}" var="customerVar" rules="all" border="1">
+			<ice:column id="idCustomer">
+				<f:facet name="header">
+					<ice:outputText value="Id"></ice:outputText>
+				</f:facet>
+				<h:outputText value="#{customerVar.idCustomer}" />
+			</ice:column>
+			<ice:column id="lasttnameCustomer">
+				<f:facet name="header">
+					<ice:outputText value="Nom"></ice:outputText>
+				</f:facet>
+				<h:outputText value="#{customerVar.lastnameCustomer}" />
+			</ice:column>
+			<ice:column id="priceProduct">
+				<f:facet name="header">
+					<ice:outputText value="Prenom"></ice:outputText>
+				</f:facet>
+				<h:outputText value="#{customerVar.firstnameCustomer}" />
+			</ice:column>
+			<ice:column id="qteProduct">
+				<f:facet name="header">
+					<ice:outputText value="Email"></ice:outputText>
+				</f:facet>
+				<h:outputText value="#{customerVar.emailCustomer}" />
+			</ice:column>
+			<ice:column id="discountProduct">
+				<f:facet name="header">
+					<ice:outputText value="Tel Fixe"></ice:outputText>
+				</f:facet>
+				<h:outputText value="#{customerVar.telFixCustomer}" />
+			</ice:column>
+			<ice:column >
+				<f:facet name="header">
+					<ice:outputText value="Tel Mobile"></ice:outputText>
+				</f:facet>
+				<h:outputText value="#{customerVar.telMobilCustomer}" />
+			</ice:column>
+			<ice:column >
+				<f:facet name="header">
+					<ice:outputText value="Balance"></ice:outputText>
+				</f:facet>
+				<h:outputText value="#{customerVar.account.balanceAccount}" />
+			</ice:column>
+			<ice:column id="Crediter">
+						<f:facet name="header">
+							<ice:outputText value="Crediter" ></ice:outputText>
+						</f:facet>
+						<h:commandLink value="Crediter " action="#{clientMB.openVisibleCre}"/>
+						</ice:column>
+						<ice:column id="CrediterColumn">
+						<f:facet name="header">
+							
+						</f:facet>
+						<ice:panelGrid columns="3" rendered="#{clientMB.visibleCre}">
+						<ice:inputText  binding="#{clientMB.inputCrediter}"></ice:inputText>
+						<h:commandLink value="Valider " action="#{clientMB.doCrediter}">
+							
+							<f:param name="idAccount" value="#{customerVar.account.idAccount}" />	
+
+						</h:commandLink>
+					
+						<h:commandLink value="Annuler" action="#{clientMB.closeVisibleCre }"></h:commandLink>
+						</ice:panelGrid>
+
+						
+					</ice:column>
+					<ice:column id="Debiter">
+						<f:facet name="header">
+							<ice:outputText value="Debiter" ></ice:outputText>
+						</f:facet>
+						<h:commandLink value="Debiter " action="#{clientMB.openVisibleDeb}">
+							
+								<f:param name="idProduct" value="#{consoleVar.idProduct}" />
+
+						</h:commandLink>
+					</ice:column>
+					<ice:column id="DebiterColumn">
+						<f:facet name="header">
+							
+						</f:facet>
+						<ice:panelGrid columns="3" rendered="#{clientMB.visibleDeb}">
+						<ice:inputText  binding="#{clientMB.inputDebiter}"></ice:inputText>
+						<h:commandLink value="Valider " action="#{clientMB.doDebiter}">
+							
+							<f:param name="idAccount" value="#{customerVar.account.idAccount}" />	
+
+						</h:commandLink>
+					
+						<h:commandLink value="Annuler" action="#{clientMB.closeVisibleDeb }"></h:commandLink>
+						</ice:panelGrid>
+
+
+						
+					</ice:column>
+                   <ice:column id="Delete">
+						<f:facet name="header">
+							<ice:outputText value="Delete"></ice:outputText>
+						</f:facet>
+						<h:commandLink action="#{clientMB.openPopupDel}">
+							<h:graphicImage value="/images/icons/delete.gif"
+								style="border: 0px;" />
+								<f:param name="idCustomer" value="#{customerVar.idCustomer}" />
+
+						</h:commandLink>
+					</ice:column>
+			
+		</ice:dataTable>
+	</ice:panelGrid> 
+	<div style="z-index: 10; position: inherit"><ice:panelPopup
+				modal="false" draggable="true" rendered="#{clientMB.visibleDel}"
+				style="z-index: 1000;   position: absolute; ">
+				<f:facet name="header">
+					<ice:panelGrid width="100%" cellpadding="0" cellspacing="0"
+						columns="2">
+						<div align="center"><ice:outputText value="Attention" /></div>
+						<div align="right"><ice:commandButton value="X"
+							action="#{clientMB.closePopupDel}" style="font-size: 6pt" /></div>
+					</ice:panelGrid>
+				</f:facet>
+				<f:facet name="body">
+
+					<ice:panelGrid columns="1">
+						<div align="center" style="height: 50px ;width: 200px;"><ice:outputText
+							value="Voulez vous vraiment supprimer ce Client ?" /></div>
+						<div align="center">
+						<ice:commandLink value="Valider"
+							action="#{clientMB.removeCustomer}">
+							
+
+						</ice:commandLink> <ice:commandLink value="Annuler" action="#{clientMB.closePopupDel}" />
+						</div>
+
+					</ice:panelGrid>
+				</f:facet>
+
+			</ice:panelPopup></div>
+	</div>
+</ice:form></div>

@@ -1,0 +1,15 @@
+
+
+<f:view xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	
+	<h:panelGroup rendered="#{CommonSession.connected}">
+		Bienvenue #{CommonSession.nameCustomer} | <h:commandLink value="Se deconnecter" action="#{CommonSession.logout}"/>
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{!CommonSession.connected}">
+		<h:commandLink value="S'incrire" action="#{CommonSession.signup}"/>
+		<h:commandLink value="Se connecter" action="#{CommonSession.login}"/>
+	</h:panelGroup>
+</f:view>

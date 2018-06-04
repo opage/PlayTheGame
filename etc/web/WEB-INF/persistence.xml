@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+  <persistence-unit name="entity" transaction-type="JTA">
+    <provider></provider>
+    <jta-data-source>jdbc_mysql</jta-data-source>    
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>       
+    </properties>
+  </persistence-unit>
+</persistence>
+

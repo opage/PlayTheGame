@@ -1,0 +1,66 @@
+<f:view template="/templates/main-client-template.jspx"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+	<ice:outputText value="#{CommonSession.megError}" />
+
+	<ice:panelGrid id="panelGrid" columns="2" border="0">
+		<ice:outputText value="Email (votre login)"/>
+		<ice:panelGroup>
+			<ice:inputText id="emailInscription" binding="#{CommonSession.emailNewCus}" size="30">
+				<f:validator validatorId="InscriptionClientValidator_Client" />
+			</ice:inputText>
+			<h:message for="emailInscription" style="color: red;"/>
+		</ice:panelGroup>
+		
+		<ice:outputText value="Mot de passe"/>
+		<ice:inputSecret id="passwordNewCus" binding="#{CommonSession.passwordNewCus}" size="30"/>
+		
+		<ice:outputText value="Confirmer votre mot de passe"/>
+		<ice:panelGroup>
+			<ice:inputSecret id="confirmPasswordNewCus" binding="#{CommonSession.confirmPasswordNewCus}" size="30">
+				<f:validator validatorId="InscriptionClientValidator_Password" />
+			</ice:inputSecret>
+			<h:message for="confirmPasswordNewCus" style="color: red;"/>
+		</ice:panelGroup>
+		
+		<ice:outputText value="Nom"/>
+		<ice:inputText binding="#{CommonSession.firstnameNewCus}" size="30"/>
+		
+		<ice:outputText value="Prenom"/>
+		<ice:inputText binding="#{CommonSession.lastnameNewCus}" size="30"/>
+		
+		<ice:outputText value="Date de naissance (jj/mm/aaaa)"/>
+		<ice:panelGroup>
+			<ice:inputText id="birthdayNewCus" binding="#{CommonSession.birthdayNewCus}" size="30">
+				<f:validator validatorId="InscriptionClientValidator_Birthday" />
+			</ice:inputText>
+			<h:message for="birthdayNewCus" style="color: red;"/>
+		</ice:panelGroup>
+		
+		<ice:outputText value="Telephone fix"/>
+		<ice:panelGroup>
+			<ice:inputText id="phoneNumberFixNewCus" binding="#{CommonSession.homePhoneNewCus}" size="30">
+				<f:validator validatorId="InscriptionClientValidator_PhoneNumber" />
+			</ice:inputText>
+			<h:message for="phoneNumberFixNewCus" style="color: red;"/>
+		</ice:panelGroup>
+		
+		<ice:outputText value="Telephone mobile"/>
+		<ice:panelGroup>
+			<ice:inputText id="phoneNumberMobileNewCus" binding="#{CommonSession.mobilePhoneNewCus}" size="30">
+				<f:validator validatorId="InscriptionClientValidator_PhoneNumber" />
+			</ice:inputText>
+			<h:message for="phoneNumberMobileNewCus" style="color: red;"/>
+		</ice:panelGroup>
+								
+	</ice:panelGrid>
+	
+	<ice:commandButton value="S'inscrire" action="#{CommonSession.signupValidate}"/>
+	<ice:commandButton value="Continuer vos achats" action="#{CommonSession.changeToHomeView}"/>
+
+</f:view>

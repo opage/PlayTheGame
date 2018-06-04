@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="/templates/main-client-template.jspx"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:define name="content">
+        <ui:decorate template="/templates/content-client-template.jspx">            
+            <!-- header content here  -->
+            <ui:define name="pageName">                
+            </ui:define>
+            <!-- insert content here -->
+            <ui:define name="pageContent">                                    
+            </ui:define>
+        </ui:decorate>
+    </ui:define>
+</ui:composition> 

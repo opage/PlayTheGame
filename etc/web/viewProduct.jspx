@@ -1,0 +1,13 @@
+
+
+<f:view xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<body>
+		<div >
+			<h1>#{CommonSession.productChosen.name}</h1>			
+		</div>                
+	</body>
+
+</f:view>
